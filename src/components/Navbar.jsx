@@ -57,7 +57,7 @@ const Navbar = () => {
           className="text-3xl font-Josefin
                   text-teal-800 font-bold cursor-pointer"
         >
-          <Link to="/">
+          <Link to="/textop.AI/">
             Textop.<span className="text-teal-500">AI</span>
           </Link>
         </span>
