@@ -4,37 +4,23 @@ import { useState } from "react";
 import { MdSummarize } from "../../Icons";
 import {
   apiErrorMessage,
-  emptyWarningMessage,
   emptyWarningMessageForSummary,
-  wrongInputForSummary,
+  wrongInputForSummary
 } from "../../constant";
 import { dangerToast, warningToast } from "../../customToast";
 
 import {
-  Section,
   Button,
   PresentationText,
-  Textarea,
+  Section,
   Summary,
+  Textarea,
 } from "../../components";
 
 const SummarizeText = () => {
   const [text, setText] = useState("");
   const [summary, setSummary] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const openAIprompt = {
-    model: "text-davinci-003",
-    prompt:
-      "Summarize the following text into few words.To ensure accuracy, please make sure to include the most important information and ideas from the original text. Also Format the text:\n\n" +
-      text +
-      "",
-    temperature: 0.5,
-    max_tokens: 60,
-    top_p: 1.0,
-    frequency_penalty: 0.8,
-    presence_penalty: 0.0,
-  };
 
   const handleSummarize = () => {
     setSummary("");
@@ -43,28 +29,28 @@ const SummarizeText = () => {
     } else {
       setIsLoading(true);
 
-      const openaiAxios = axios.create({
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-        },
-      });
-
-      openaiAxios
-        .post(import.meta.env.VITE_OPEN_API_URL, openAIprompt)
+      axios
+        .post(import.meta.env.VITE_AWS_API_URL + "summary", {
+          inputText: text,
+          method: "getSummary",
+        })
         .then((response) => {
-          const result = response.data.choices[0].text;
-          console.log(result);
+          const data = response.data;
 
-          if (result === "") {
-            dangerToast(wrongInputForSummary);
-          } else {
-            setSummary(result);
+          if (data.statusCode == 200) {
+            const summary = data.body;
+            if (summary !== "") setSummary(summary);
+            else {
+              dangerToast(wrongInputForSummary);
+            }
             setText("");
             setIsLoading(false);
+          } else {
+            setIsLoading(false);
+            dangerToast(apiErrorMessage);
           }
         })
-        .catch((error) => {
+        .catch((e) => {
           setIsLoading(false);
           dangerToast(apiErrorMessage);
         });

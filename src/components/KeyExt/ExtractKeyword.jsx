@@ -31,8 +31,9 @@ const ExtractKeyword = () => {
       setIsLoading(true);
 
       axios
-        .post(import.meta.env.VITE_AWS_API_URL, {
+        .post(import.meta.env.VITE_AWS_API_URL + "extractedkeys", {
           inputText: text,
+          method: "getKeywords",
         })
         .then((response) => {
           const data = response.data;

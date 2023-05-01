@@ -5,7 +5,6 @@ import { BiCategoryAlt } from "../../Icons";
 import {
   apiErrorMessage,
   emptyWarningMessageForClassification,
-  openAIprompt,
   wrongInputForClassification,
 } from "../../constant";
 import { dangerToast, warningToast } from "../../customToast";
@@ -37,28 +36,29 @@ const ClassifyText = () => {
         },
       });
 
-      const prompt = {
-        ...openAIprompt,
-        prompt:
-          `Classify this text and Please provide
-          the predicted classification label for this text:\n\n` + text,
-      };
-
-      openaiAxios
-        .post(import.meta.env.VITE_OPEN_API_URL, prompt)
+      axios
+        .post(import.meta.env.VITE_AWS_API_URL + "classification", {
+          inputText: text,
+          method: "getSummary",
+        })
         .then((response) => {
-          const result = response.data.choices[0].text;
-          console.log(result);
+          const data = response.data;
 
-          if (result === "") {
-            dangerToast(wrongInputForClassification);
-          } else {
-            setClassification(result.trim());
+          if (data.statusCode == 200) {
+            const classificationData = data.body;
+            if (classificationData !== "")
+              setClassification(classificationData.trim());
+            else {
+              dangerToast(wrongInputForClassification);
+            }
             setText("");
             setIsLoading(false);
+          } else {
+            setIsLoading(false);
+            dangerToast(apiErrorMessage);
           }
         })
-        .catch((error) => {
+        .catch((e) => {
           setIsLoading(false);
           dangerToast(apiErrorMessage);
         });

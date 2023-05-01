@@ -64,7 +64,8 @@ const Navbar = () => {
       </div>
       {pathname === "/" ? (
         <a
-          href="#"
+          href="https://github.com/hardikverma22/textop.AI"
+          target="_blank"
           className="px-2 py-1 rounded-md bg-teal-900 text-white
                     flex gap-1 justify-center items-center
                     hover:bg-teal-700 cursor-pointer"

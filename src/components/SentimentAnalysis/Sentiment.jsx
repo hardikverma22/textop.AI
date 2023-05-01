@@ -1,24 +1,20 @@
 import axios from "axios";
 import { useState } from "react";
 
-import { BiCategoryAlt, MdSummarize } from "../../Icons";
+import { BiCategoryAlt } from "../../Icons";
 import {
   apiErrorMessage,
-  emptyWarningMessage,
-  emptyWarningMessageForClassification,
   emptyWarningMessageForSentimentAnalysis,
-  openAIprompt,
-  wrongInputForClassification,
-  wrongInputForSummary,
+  wrongInputForSentimentAnalysis,
 } from "../../constant";
 import { dangerToast, warningToast } from "../../customToast";
 
 import {
-  Section,
   Button,
   PresentationText,
-  Textarea,
+  Section,
   Summary,
+  Textarea,
 } from "../../components";
 
 const Sentiment = () => {
@@ -33,33 +29,28 @@ const Sentiment = () => {
     } else {
       setIsLoading(true);
 
-      const openaiAxios = axios.create({
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-        },
-      });
-
-      const prompt = {
-        ...openAIprompt,
-        prompt: `Analyze the sentiment of the following text:\n\n` + text,
-      };
-
-      openaiAxios
-        .post(import.meta.env.VITE_OPEN_API_URL, prompt)
+      axios
+        .post(import.meta.env.VITE_AWS_API_URL + "sentiment", {
+          inputText: text,
+          method: "getSentiments",
+        })
         .then((response) => {
-          const result = response.data.choices[0].text;
-          console.log(result);
+          const data = response.data;
 
-          if (result === "") {
-            dangerToast(wrongInputForSentimentAnalysis);
-          } else {
-            setSentiment(result.trim());
+          if (data.statusCode == 200) {
+            const result = data.body;
+            if (result !== "") setSentiment(result.trim());
+            else {
+              dangerToast(wrongInputForSentimentAnalysis);
+            }
             setText("");
             setIsLoading(false);
+          } else {
+            setIsLoading(false);
+            dangerToast(apiErrorMessage);
           }
         })
-        .catch((error) => {
+        .catch((e) => {
           setIsLoading(false);
           dangerToast(apiErrorMessage);
         });
