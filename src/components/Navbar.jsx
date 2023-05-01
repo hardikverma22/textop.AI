@@ -62,7 +62,7 @@ const Navbar = () => {
           </Link>
         </span>
       </div>
-      {pathname === "/" ? (
+      {pathname === "/textop.AI/" ? (
         <a
           href="https://github.com/hardikverma22/textop.AI"
           target="_blank"
