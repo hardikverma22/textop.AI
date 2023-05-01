@@ -29,21 +29,20 @@ const Sentiment = lazy(() =>
   import("./components/SentimentAnalysis/Sentiment.jsx")
 );
 
+const PageNotFound = lazy(() => import("./components/PageNotFound"));
+
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/textop.AI" element={<RootLayout />}>
-      <Route index element={<Hero />} />
-      <Route path="sentiment" element={<Sentiment />} />
-      <Route path="classify" element={<ClassifyText />} />
-      <Route path="keyext" element={<ExtractKeyword />} />
-      <Route path="summarize" element={<SummarizeText />} />
-      {/* <Route path="operation" element={<RootLayout />}>
+    <>
+      <Route path="/textop.AI" element={<RootLayout />}>
+        <Route index element={<Hero />} />
         <Route path="sentiment" element={<Sentiment />} />
         <Route path="classify" element={<ClassifyText />} />
         <Route path="keyext" element={<ExtractKeyword />} />
         <Route path="summarize" element={<SummarizeText />} />
-      </Route> */}
-    </Route>
+      </Route>
+      <Route path="*" element={<PageNotFound />} />
+    </>
   )
 );
 
