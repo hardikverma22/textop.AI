@@ -1,6 +1,5 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./components/App.jsx";
 import "./index.css";
 
 import RootLayout from "./components/RootLayout.jsx";
@@ -11,7 +10,6 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Loader from "./components/Loader.jsx";
 
 const Hero = lazy(() => import("./components/Hero.jsx"));
 
@@ -33,7 +31,7 @@ const Sentiment = lazy(() =>
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
+    <Route path="/textop.AI" element={<RootLayout />}>
       <Route index element={<Hero />} />
       <Route path="sentiment" element={<Sentiment />} />
       <Route path="classify" element={<ClassifyText />} />
