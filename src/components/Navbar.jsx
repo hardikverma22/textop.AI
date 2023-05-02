@@ -1,25 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiGithub, FiMenu } from "../Icons";
 import { useEffect, useRef, useState } from "react";
-
-const tabs = [
-  {
-    title: "Sentiment Analysis",
-    link: "sentiment",
-  },
-  {
-    title: "Classify Text",
-    link: "classify",
-  },
-  {
-    title: "Extract Keywords",
-    link: "keyext",
-  },
-  {
-    title: "Summarize Text",
-    link: "summarize",
-  },
-];
+import { tabs } from "../constant";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -58,7 +40,9 @@ const Navbar = () => {
                   text-teal-800 font-bold cursor-pointer"
         >
           <Link to="/">
-            Textop.<span className="text-teal-500">AI</span>
+            <div>
+              Textop.<span className="text-teal-500">AI</span>
+            </div>
           </Link>
         </span>
       </div>

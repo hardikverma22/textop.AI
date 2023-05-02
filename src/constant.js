@@ -9,17 +9,27 @@ const wrongInputForSummary = "OpenAi was not able to summarize your text this ti
 const emptyWarningMessageForSummary = "I would need text to Summarize for you.";
 const emptyWarningMessageForClassification = "I would need text to Classify for you.";
 const emptyWarningMessageForSentimentAnalysis = "I would need text to analyze sentiment for you.";
-const wrongInputForClassification = "OpenAi was not able to classify your text this time, Pelase try again in sometime"
-const wrongInputForSentimentAnalysis = "OpenAi was not able to analyze the sentiment for your text, Pelase try again in sometime"
+const wrongInputForClassification = "OpenAi was not able to classify your text this time, Pelase try again in sometime";
+const wrongInputForSentimentAnalysis = "OpenAi was not able to analyze the sentiment for your text, Pelase try again in sometime";
 
-export const openAIprompt = {
-    model: "text-davinci-003",
-    temperature: 0.5,
-    max_tokens: 60,
-    top_p: 1.0,
-    frequency_penalty: 0.8,
-    presence_penalty: 0.0,
-};
+const tabs = [
+    {
+        title: "Sentiment Analysis",
+        link: "sentiment",
+    },
+    {
+        title: "Classify Text",
+        link: "classify",
+    },
+    {
+        title: "Extract Keywords",
+        link: "keyext",
+    },
+    {
+        title: "Summarize Text",
+        link: "summarize",
+    },
+];
 
 export {
     apiErrorMessage,
@@ -31,5 +41,6 @@ export {
     emptyWarningMessageForClassification,
     wrongInputForClassification,
     emptyWarningMessageForSentimentAnalysis,
-    wrongInputForSentimentAnalysis
+    wrongInputForSentimentAnalysis,
+    tabs
 }
