@@ -57,12 +57,12 @@ const Navbar = () => {
           className="text-3xl font-Josefin
                   text-teal-800 font-bold cursor-pointer"
         >
-          <Link to="/textop.AI/">
+          <Link to="/">
             Textop.<span className="text-teal-500">AI</span>
           </Link>
         </span>
       </div>
-      {pathname === "/textop.AI/" ? (
+      {pathname === "/" ? (
         <a
           href="https://github.com/hardikverma22/textop.AI"
           target="_blank"

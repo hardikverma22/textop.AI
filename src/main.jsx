@@ -6,6 +6,7 @@ import RootLayout from "./components/RootLayout.jsx";
 
 import {
   createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
@@ -31,10 +32,10 @@ const Sentiment = lazy(() =>
 
 const PageNotFound = lazy(() => import("./components/PageNotFound"));
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <>
-      <Route path="/textop.AI" element={<RootLayout />}>
+      <Route path="/" element={<RootLayout />}>
         <Route index element={<Hero />} />
         <Route path="sentiment" element={<Sentiment />} />
         <Route path="classify" element={<ClassifyText />} />
