@@ -2,7 +2,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiGithub, FiMenu } from "../Icons";
 import { useEffect, useRef, useState } from "react";
 import { tabs } from "../constant";
-
+import { motion } from "framer-motion";
+import { container, fadeIn, fadeInX } from "../motion";
 const Navbar = () => {
   const { pathname } = useLocation();
 
@@ -32,22 +33,26 @@ const Navbar = () => {
                 px-5 py-2
                 shadow-lg
                 bg-transparent
-                h-12 w-full"
+                h-12 w-full z-50"
     >
-      <div>
-        <span
-          className="text-3xl font-Josefin
+      <motion.div
+        initial={{ x: -200, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1, type: "spring", ease: "backInOut" }}
+        className="text-3xl font-Josefin
                   text-teal-800 font-bold cursor-pointer"
-        >
-          <Link to="/">
-            <div>
-              Textop.<span className="text-teal-500">AI</span>
-            </div>
-          </Link>
-        </span>
-      </div>
+      >
+        <Link to="/">
+          <div>
+            Textop.<span className="text-teal-500">AI</span>
+          </div>
+        </Link>
+      </motion.div>
       {pathname === "/" ? (
-        <a
+        <motion.a
+          initial={{ x: 200, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1, type: "spring", ease: "backInOut" }}
           href="https://github.com/hardikverma22/textop.AI"
           target="_blank"
           className="px-2 py-1 rounded-md bg-teal-900 text-white
@@ -56,27 +61,41 @@ const Navbar = () => {
         >
           <FiGithub className="text-lg" />
           <span>Github</span>
-        </a>
+        </motion.a>
       ) : (
         <nav>
-          <ul
+          <motion.ul
+            variants={container}
+            initial="hidden"
+            animate="show"
             className="md:flex hidden gap-5
                      text-primary/80 tracking-wide text-md font-semibold font-Josefin"
           >
             {tabs.map((tab, index) => (
-              <Link to={tab.link} key={`${tab}_${index}`}>
-                <li
-                  className={`${
-                    path === tab.link
-                      ? "bg-white text-teal-950"
-                      : "text-gray-500"
-                  } hover:bg-white hover:text-black rounded-full p-2 transition duration-500 cursor-pointer`}
-                >
-                  {tab.title}
-                </li>
-              </Link>
+              <motion.div variants={fadeInX()} key={`${tab}_${index}`}>
+                <Link to={tab.link}>
+                  <li
+                    className={`relative  rounded-full p-2 transition duration-500 cursor-pointer`}
+                  >
+                    {path === tab.link && (
+                      <motion.span
+                        layoutId="bubble"
+                        className="absolute inset-0 z-10 bg-[#2962d62b] mix-blend-color-burn"
+                        style={{ borderRadius: 9999 }}
+                        transition={{
+                          type: "spring",
+                          bounce: 0.2,
+                          duration: 0.6,
+                        }}
+                      />
+                    )}
+
+                    {tab.title}
+                  </li>
+                </Link>
+              </motion.div>
             ))}
-          </ul>
+          </motion.ul>
           <button
             ref={navRef}
             className="md:hidden flex justify-center items-center
@@ -87,14 +106,23 @@ const Navbar = () => {
             <FiMenu className="text-2xl" />
           </button>
           {open ? (
-            <div
-              className={`bg-white
-                          w-full absolute top-12 left-0
+            <motion.div
+              initial={{ opacity: 0, y: "2.5rem" }}
+              animate={{ opacity: 1, y: "3rem" }}
+              transition={{ duration: 0.1, delay: 0 }}
+              className={`bg-gradient-to-r from-rose-100 to-teal-100
+                          w-full absolute top-0 left-0 shadow-lg
                           transition-all duration-500 ease-in-out`}
             >
-              <ul className="flex flex-col w-full justify-center items-center">
+              <motion.ul
+                variants={container}
+                initial="hidden"
+                animate="show"
+                className="flex flex-col w-full justify-center items-center"
+              >
                 {tabs.map((tab) => (
-                  <li
+                  <motion.li
+                    variants={fadeIn()}
                     key={tab.link}
                     className="text-lg text-center py-2
                                border-b border-b-gray-200
@@ -105,10 +133,10 @@ const Navbar = () => {
                     }}
                   >
                     {tab.title}
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
-            </div>
+              </motion.ul>
+            </motion.div>
           ) : null}
         </nav>
       )}

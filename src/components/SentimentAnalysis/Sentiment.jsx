@@ -8,6 +8,7 @@ import {
   wrongInputForSentimentAnalysis,
 } from "../../constant";
 import { dangerToast, warningToast } from "../../customToast";
+import { container } from "../../motion";
 
 import {
   Button,
@@ -16,6 +17,8 @@ import {
   Summary,
   Textarea,
 } from "../../components";
+
+import { motion } from "framer-motion";
 
 const Sentiment = () => {
   const [text, setText] = useState("");
@@ -66,7 +69,10 @@ const Sentiment = () => {
         subheading="Paste in the text below and we will analyze the sentiment for you"
       />
 
-      <div
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
         className="w-full pt-5
                   lg:w-[50%]
                   flex flex-col gap-5"
@@ -89,7 +95,7 @@ const Sentiment = () => {
             btnText="Back to Sentiment Analyzer"
           />
         )}
-      </div>
+      </motion.div>
     </Section>
   );
 };

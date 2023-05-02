@@ -10,13 +10,15 @@ import { dangerToast, warningToast } from "../../customToast";
 
 import axios from "axios";
 
+import { motion } from "framer-motion";
 import {
-  Section,
   Button,
-  PresentationText,
-  Textarea,
   Keywords,
+  PresentationText,
+  Section,
+  Textarea,
 } from "../../components";
+import { container } from "../../motion";
 
 const ExtractKeyword = () => {
   const [text, setText] = useState("");
@@ -70,7 +72,10 @@ const ExtractKeyword = () => {
           text="Catalyze Your Text Analysis: Streamline Keyword Extraction with OpenAI"
         />
 
-        <div
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
           className="w-full 
                   lg:w-[50%]
                   flex flex-col gap-5 mt-5"
@@ -92,7 +97,7 @@ const ExtractKeyword = () => {
               <Keywords keywords={keywords} setKeywords={setKeywords} />
             </>
           )}
-        </div>
+        </motion.div>
       </Section>
     </>
   );

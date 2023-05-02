@@ -17,6 +17,9 @@ import {
   Textarea,
 } from "../../components";
 
+import { motion } from "framer-motion";
+import { container } from "../../motion";
+
 const ClassifyText = () => {
   const [text, setText] = useState("");
   const [classification, setClassification] = useState("");
@@ -74,7 +77,10 @@ const ClassifyText = () => {
         subheading="Paste in the text below and we will classify it for you"
       />
 
-      <div
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
         className="w-full pt-5
                   lg:w-[50%]
                   flex flex-col gap-5"
@@ -97,7 +103,7 @@ const ClassifyText = () => {
             btnText="Back to Classifier"
           />
         )}
-      </div>
+      </motion.div>
     </Section>
   );
 };

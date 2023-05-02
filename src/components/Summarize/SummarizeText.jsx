@@ -5,7 +5,7 @@ import { MdSummarize } from "../../Icons";
 import {
   apiErrorMessage,
   emptyWarningMessageForSummary,
-  wrongInputForSummary
+  wrongInputForSummary,
 } from "../../constant";
 import { dangerToast, warningToast } from "../../customToast";
 
@@ -16,6 +16,9 @@ import {
   Summary,
   Textarea,
 } from "../../components";
+
+import { motion } from "framer-motion";
+import { container } from "../../motion";
 
 const SummarizeText = () => {
   const [text, setText] = useState("");
@@ -65,7 +68,10 @@ const SummarizeText = () => {
         text="Get to the essence of any text with our AI-powered text summarizer."
         subheading="Paste in the text below and we will summarize it for you"
       />
-      <div
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
         className="w-full pt-5
                   lg:w-[50%]
                   flex flex-col gap-5"
@@ -88,7 +94,7 @@ const SummarizeText = () => {
             btnText="Back to Summarizer"
           />
         )}
-      </div>
+      </motion.div>
     </Section>
   );
 };

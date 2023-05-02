@@ -42,5 +42,5 @@ export {
     wrongInputForClassification,
     emptyWarningMessageForSentimentAnalysis,
     wrongInputForSentimentAnalysis,
-    tabs
+    tabs,
 }

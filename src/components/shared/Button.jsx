@@ -1,8 +1,11 @@
 import { AiOutlineLoading3Quarters } from "../../Icons";
+import { motion } from "framer-motion";
+import { fadeIn } from "../../motion";
 
 const Button = ({ onBtnClick, isLoading, btnText, loadingBtntext }) => {
   return (
-    <button
+    <motion.button
+      variants={fadeIn()}
       className="w-full
                 bg-teal-500
                 text-lg
@@ -25,7 +28,7 @@ const Button = ({ onBtnClick, isLoading, btnText, loadingBtntext }) => {
       ) : (
         <span>{btnText}</span>
       )}
-    </button>
+    </motion.button>
   );
 };
 

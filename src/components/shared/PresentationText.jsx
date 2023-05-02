@@ -1,7 +1,22 @@
+import { motion } from "framer-motion";
+import { container } from "../../motion";
+
+const itemA = {
+  hidden: { opacity: 0, y: -3 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, type: "spring", bounce: 0.5 },
+  },
+};
+
 const PresentationText = ({ icon, heading, text, subheading }) => {
   return (
-    <>
-      <div className="flex gap-4 items-center justify-center text-gray-900">
+    <motion.div variants={container} initial="hidden" animate="show">
+      <motion.div
+        variants={itemA}
+        className="flex gap-4 items-center justify-center text-gray-900"
+      >
         {icon}
         <h1
           className="text-3xl text-gray-900 text-center
@@ -9,15 +24,21 @@ const PresentationText = ({ icon, heading, text, subheading }) => {
         >
           {heading}
         </h1>
-      </div>
+      </motion.div>
 
-      <p className="text-lg text-center font-medium text-gray-900 tracking-wide pt-5">
+      <motion.p
+        variants={itemA}
+        className="text-lg text-center font-medium text-gray-900 tracking-wide pt-5"
+      >
         {text}
-      </p>
-      <p className="text-md text-center font-medium text-gray-500 tracking-wide pt-5">
+      </motion.p>
+      <motion.p
+        variants={itemA}
+        className="text-md text-center font-medium text-gray-500 tracking-wide pt-5"
+      >
         {subheading}
-      </p>
-    </>
+      </motion.p>
+    </motion.div>
   );
 };
 

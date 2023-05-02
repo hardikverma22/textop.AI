@@ -1,6 +1,10 @@
+import { motion } from "framer-motion";
+import { fadeIn } from "../../motion";
+
 const Textarea = ({ isLoading, setText, text }) => {
   return (
-    <textarea
+    <motion.textarea
+      variants={fadeIn()}
       rows={10}
       cols={10}
       value={text}
