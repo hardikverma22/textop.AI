@@ -1,3 +1,6 @@
+> [!NOTE]
+> This reposiory has been archived and has been re-written in NextJs in order to take advantage of server actions to call openAI.
+
 # TextOp.ai
 
 ## Description
